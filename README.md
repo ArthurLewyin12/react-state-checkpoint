@@ -1,70 +1,38 @@
-# Getting Started with Create React App
+# React State Checkpoint
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is my React State checkpoint (Front End Development - React State). It's my first class-based component with a state: a button shows or hides the profile of a person, and a timer shows how long ago the component was mounted.
 
-## Available Scripts
+## What's in App.js
 
-In the project directory, you can run:
+- `App` is a class that extends `Component` (no function component here)
+- the state is created in the `constructor`:
+  - `person`: an object with `fullName`, `bio`, `imgSrc` and `profession`
+  - `shows`: a boolean, `false` at the start so the profile is hidden
+  - `secondsSinceMount`: the number of seconds since the component was mounted
+- the button calls `toggleProfile`, which does `this.setState` with the opposite of `shows`. When `shows` is `true`, the profile appears (`{shows && <article>...</article>}`), and the text of the button changes between "Show profile" and "Hide profile".
+- the timer uses the lifecycle:
+  - `componentDidMount` starts a `setInterval` that adds 1 to `secondsSinceMount` every second
+  - `componentWillUnmount` stops it with `clearInterval`, so the interval doesn't keep running after the component is gone
+  - the seconds are shown as `mm:ss` (for example "Mounted 01:25 ago")
 
-### `npm start`
+I used `setState` with a function (`prevState => ...`) because the new value depends on the old one.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## The person
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+I chose Grace Hopper, an American computer scientist who wrote one of the first compilers. Her photo comes from [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Commodore_Grace_M._Hopper,_USN_(covered).jpg). It's an official US Navy photo by James S. Davis and it is in the public domain.
 
-### `npm test`
+## Design
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- fonts from Google Fonts: Literata for the titles, Public Sans for the text and IBM Plex Mono for the timer
+- an off-white background, black text and a navy blue color for the hover and the profession
+- icons from Iconsax (`iconsax-reactjs`): an eye on the button, a timer next to the counter and a briefcase for the profession
+- on a phone, the photo goes above the text
 
-### `npm run build`
+## How to run it
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```bash
+npm install
+npm start
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Then open http://localhost:3000 in the browser.
